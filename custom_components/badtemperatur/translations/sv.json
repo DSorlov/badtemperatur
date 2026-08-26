@@ -1,0 +1,98 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Lägg till en badplats",
+        "description": "Peka ut badplatsen på kartan. Närmaste havsruta med satellitdata slås upp automatiskt.",
+        "data": {
+          "name": "Namn",
+          "location": "Plats",
+          "max_search_radius": "Sökradie",
+          "dataset": "Datakälla"
+        },
+        "data_description": {
+          "name": "Visas som enhetens namn, till exempel ”Tylösand”.",
+          "location": "Badplatsen du vill ha vattentemperaturen för.",
+          "max_search_radius": "Hur långt från platsen Home Assistant får leta efter en havsruta. Öka värdet för trånga vikar och skärgård.",
+          "dataset": "Automatiskt väljer den produkt med högst upplösning som täcker platsen."
+        }
+      },
+      "reconfigure": {
+        "title": "Ändra badplats",
+        "description": "Justera plats, sökradie eller datakälla. Mätpunkten slås upp på nytt.",
+        "data": {
+          "location": "Plats",
+          "max_search_radius": "Sökradie",
+          "dataset": "Datakälla"
+        },
+        "data_description": {
+          "location": "Badplatsen du vill ha vattentemperaturen för.",
+          "max_search_radius": "Hur långt från platsen Home Assistant får leta efter en havsruta. Öka värdet för trånga vikar och skärgård.",
+          "dataset": "Automatiskt väljer den produkt med högst upplösning som täcker platsen."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Kunde inte nå Copernicus Marine. Kontrollera internetanslutningen och försök igen.",
+      "no_sea_nearby": "Ingen satellitmätt havstemperatur hittades inom sökradien. Flytta markören närmare öppet vatten eller öka sökradien.",
+      "unknown": "Oväntat fel."
+    },
+    "abort": {
+      "already_configured": "Den här platsen är redan konfigurerad.",
+      "reconfigure_successful": "Badplatsen uppdaterades."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Inställningar",
+        "data": {
+          "update_interval": "Uppdateringsintervall"
+        },
+        "data_description": {
+          "update_interval": "Hur ofta temperaturen hämtas. Satellitprodukterna publiceras en gång per dygn, så 60 minuter räcker gott."
+        }
+      }
+    }
+  },
+  "selector": {
+    "dataset": {
+      "options": {
+        "auto": "Automatiskt (rekommenderas)",
+        "baltic": "Östersjön, Kattegatt och Skagerrak (0,02°)",
+        "atlantic": "Nordatlanten och europeiska hav (0,01°)",
+        "mediterranean": "Medelhavet (0,01°)",
+        "black_sea": "Svarta havet (0,01°)",
+        "global": "Globala havet (0,05°)"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "water_temperature": {
+        "name": "Vattentemperatur",
+        "state_attributes": {
+          "dataset": { "name": "Datakälla" },
+          "dataset_name": { "name": "Produkt" },
+          "measurement_latitude": { "name": "Mätpunktens latitud" },
+          "measurement_longitude": { "name": "Mätpunktens longitud" },
+          "distance_km": { "name": "Avstånd till mätpunkt" }
+        }
+      },
+      "observed_at": {
+        "name": "Observationsdatum"
+      }
+    }
+  },
+  "exceptions": {
+    "cannot_connect": {
+      "message": "Kunde inte nå Copernicus Marine."
+    },
+    "no_recent_data": {
+      "message": "Copernicus Marine har ingen färsk data för mätpunkten."
+    },
+    "unknown_dataset": {
+      "message": "Datakällan {dataset} finns inte längre. Konfigurera om badplatsen."
+    }
+  }
+}

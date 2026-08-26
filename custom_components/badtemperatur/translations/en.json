@@ -1,0 +1,98 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add a bathing spot",
+        "description": "Pick the spot on the map. The nearest sea grid cell with satellite data is looked up automatically.",
+        "data": {
+          "name": "Name",
+          "location": "Location",
+          "max_search_radius": "Search radius",
+          "dataset": "Data source"
+        },
+        "data_description": {
+          "name": "Shown as the device name, for example \"Tylösand\".",
+          "location": "The bathing spot you want the water temperature for.",
+          "max_search_radius": "How far from the spot Home Assistant may look for a sea grid cell. Increase it for narrow bays and archipelagos.",
+          "dataset": "Automatic picks the highest resolution product that covers the location."
+        }
+      },
+      "reconfigure": {
+        "title": "Change bathing spot",
+        "description": "Adjust the location, search radius or data source. The measurement point is looked up again.",
+        "data": {
+          "location": "Location",
+          "max_search_radius": "Search radius",
+          "dataset": "Data source"
+        },
+        "data_description": {
+          "location": "The bathing spot you want the water temperature for.",
+          "max_search_radius": "How far from the spot Home Assistant may look for a sea grid cell. Increase it for narrow bays and archipelagos.",
+          "dataset": "Automatic picks the highest resolution product that covers the location."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach Copernicus Marine. Check the internet connection and try again.",
+      "no_sea_nearby": "No satellite sea temperature was found within the search radius. Move the marker closer to open water or increase the search radius.",
+      "unknown": "Unexpected error."
+    },
+    "abort": {
+      "already_configured": "This location is already configured.",
+      "reconfigure_successful": "The bathing spot was updated."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Settings",
+        "data": {
+          "update_interval": "Update interval"
+        },
+        "data_description": {
+          "update_interval": "How often the temperature is fetched. The satellite products are published once a day, so 60 minutes is plenty."
+        }
+      }
+    }
+  },
+  "selector": {
+    "dataset": {
+      "options": {
+        "auto": "Automatic (recommended)",
+        "baltic": "Baltic Sea, Kattegat and Skagerrak (0.02°)",
+        "atlantic": "North Atlantic and European seas (0.01°)",
+        "mediterranean": "Mediterranean Sea (0.01°)",
+        "black_sea": "Black Sea (0.01°)",
+        "global": "Global ocean (0.05°)"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "water_temperature": {
+        "name": "Water temperature",
+        "state_attributes": {
+          "dataset": { "name": "Data source" },
+          "dataset_name": { "name": "Product" },
+          "measurement_latitude": { "name": "Measurement latitude" },
+          "measurement_longitude": { "name": "Measurement longitude" },
+          "distance_km": { "name": "Distance to measurement point" }
+        }
+      },
+      "observed_at": {
+        "name": "Observation date"
+      }
+    }
+  },
+  "exceptions": {
+    "cannot_connect": {
+      "message": "Could not reach Copernicus Marine."
+    },
+    "no_recent_data": {
+      "message": "Copernicus Marine has no recent data for the measurement point."
+    },
+    "unknown_dataset": {
+      "message": "The data source {dataset} is no longer available. Reconfigure the bathing spot."
+    }
+  }
+}

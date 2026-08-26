@@ -1,0 +1,12 @@
+{
+  "entity": {
+    "sensor": {
+      "water_temperature": {
+        "default": "mdi:swim"
+      },
+      "observed_at": {
+        "default": "mdi:satellite-variant"
+      }
+    }
+  }
+}
